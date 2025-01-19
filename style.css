@@ -1007,6 +1007,13 @@ nav .links-container:hover > a, nav .links-container:hover{
     height: 500px;
     top: 114px;
     transform: translate(0,-4px);
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.curves-container-1 .background-for-svg{
+    min-height: 560px !important;
 }
 
 /* segundo */
@@ -1299,7 +1306,7 @@ nav .links-container:hover > a, nav .links-container:hover{
 
 
 
-.see-more-proyects-container{
+.see-more-proyects-container, .validate-cert-container{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1319,6 +1326,7 @@ nav .links-container:hover > a, nav .links-container:hover{
     font-weight: 900;
     color: rgb(30, 28, 39);
     transition: letter-spacing 250ms;
+    text-decoration: none;
 }
 
 .see-more-proyects-button:hover{
@@ -1334,9 +1342,9 @@ nav .links-container:hover > a, nav .links-container:hover{
 }
 
 
-
-
-
+.validate-cert-container{
+    margin-top: 50px;
+}
 
 
 
@@ -1455,6 +1463,27 @@ nav .links-container:hover > a, nav .links-container:hover{
     .certificates-title-container{
         transform: translate(0, -160px);
     }
+}
+
+.verify-cert{
+    margin-top:10px;
+    background: rgb(255, 55, 82) !important;
+    color: #fff !important;
+    border-bottom: 3px solid rgb(145, 29, 29)  !important;;
+}
+
+.verify-cert:hover {
+    background: rgb(255, 81, 104) !important;
+    border-bottom: 3px solid rgb(175, 36, 36)  !important;;
+    color: rgb(62, 58, 77);
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+
+.verify-cert:active{
+    border-top: none;
+    border-bottom: none;
+    margin-top: 10px !important;
 }
 
 /* tarjetas de certificados */
@@ -1929,8 +1958,11 @@ footer a:hover{
         width: 60%;
         scale: 0.8;
     }
-    .background-for-svg{
-        min-height: 370px;
+    .curves-container-1 .background-for-svg{
+        min-height: 510px;
+    }
+    .swiper-pagination{
+        translate: 0px -10px;
     }
     .proyect-card-hover-mobile, .mobile-imgs-container, .proyect-card-hover-desktop{
         display: none !important;
@@ -2000,9 +2032,15 @@ footer a:hover{
     .custom-shape-divider-top-1690058967{
         transform: translate(0);
     }
-    .background-for-svg{
-        min-height: 480px;
+    .curves-container-1 .background-for-svg{
+        min-height: 560px;
         transform: translate(0);
+    }
+    .swiper{
+        margin-bottom: -100px;
+    }
+    .swiper-pagination{
+        translate: 0px 10px;
     }
     .text-container{
         display: none;

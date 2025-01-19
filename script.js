@@ -524,11 +524,11 @@ const appearFigures = () => {
     }, 500);
 }
 
-window.addEventListener("load",()=>{
-    setTimeout(() => {
-        writeUpperLetters()
-    }, 1000);
-})
+
+setTimeout(() => {
+    writeUpperLetters()
+}, 1000);
+
 
 
 
@@ -936,7 +936,8 @@ proyectCard5.addEventListener("mouseout",()=>{
 
 
 const seeMoreProyectsContainer = document.querySelector(".see-more-proyects-container");
-const seeMoreProyectsButton = document.querySelector(".see-more-proyects-button");
+const seeMoreProyectsButton = document.getElementById("see-more-proyects-button");
+
 let seeMoreProyectsCounter = 0
 
 seeMoreProyectsButton.addEventListener("click",()=>{
@@ -969,12 +970,35 @@ seeMoreProyectsButton.addEventListener("click",()=>{
 
 
 
+// Seleccionar los elementos que contienen los códigos de los certificados
+let verifyButton1 = document.querySelector(".verify-cert-1");
+let verifyButton2 = document.querySelector(".verify-cert-2");
+let verifyButton3 = document.querySelector(".verify-cert-3");
 
+// Función para copiar el código de los certificados al portapapeles
+function copiarCodigos(event) {
+    // Obtener el código correspondiente al botón que se presionó
+    let textoParaCopiar = event.target.textContent.trim();  // Usamos el texto dentro de la etiqueta <p>
 
+    // Usar la API Clipboard para copiar el texto al portapapeles
+    navigator.clipboard.writeText(textoParaCopiar).then(() => {
+        // Guardamos el contenido original (texto y el ícono)
+        let botonOriginalHTML = event.target.innerHTML; // Guardamos el HTML completo (incluido el icono)
+        event.target.innerHTML = '<i class="fa-solid fa-check"></i> ¡Código Copiado!'; // Cambiar el HTML
 
+        // Esperar 2 segundos y volver al estado original
+        setTimeout(() => {
+            event.target.innerHTML = botonOriginalHTML; // Restaurar el contenido original (incluido el icono)
+        }, 2000);
+    }).catch(err => {
+        console.error("Error al copiar al portapapeles: ", err);
+    });
+}
 
-
-
+// Event listeners para los botones
+verifyButton1.addEventListener("click", copiarCodigos);
+verifyButton2.addEventListener("click", copiarCodigos);
+verifyButton3.addEventListener("click", copiarCodigos);
 
 
 
@@ -1137,9 +1161,6 @@ observerExpSection.observe(expSectionContainer)
 
 
 
-
-
-
 // sepador binario
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -1180,3 +1201,4 @@ document.addEventListener('DOMContentLoaded', () => {
     // Iniciar el efecto glitch
     setInterval(glitchEffect, 2000);
 });
+

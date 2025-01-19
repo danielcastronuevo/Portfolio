@@ -95,7 +95,7 @@ const textContainer = document.querySelector(".text-contaiener")
 
 const textForWriteOnce  = {
     textUpper : 'Hola! soy Daniel',
-    textLower : 'Desarrollador full-stack'
+    textLower : 'Especialista de Ciberseguridad'
 }
 
 let iTextForWriteOnceUPPER = 0
@@ -126,162 +126,205 @@ writeUpperLetters = () => {
                 clearInterval(writingUpperLetters)
                 setTimeout(() => {
                     writeUpperLetters()
+                    writePresentationLetter()
                 }, 900);
                 
             }
         }
-        else{
-            if(textForWriteOnce.textLower[iTextForWriteOnceLOWER]){
-                if(textForWriteOnce.textLower[iTextForWriteOnceLOWER] == 'f'){
-                    textContainer.style.width = `448px`
-                }
-                textForEdit.innerHTML = textForEdit.innerHTML + textForWriteOnce.textLower[iTextForWriteOnceLOWER]
-                iTextForWriteOnceLOWER ++
-            }
-            else{
-                stick.style.cssText = `animation-name: turnOnOffStick;`
-                clearInterval(writingUpperLetters)
-                setTimeout(() => {
-                    deleteLetters()
-                }, 2000);
+
+        // else{
+        //     textUpperOnce.style.width = '466px'
+        //     if(textForWriteOnce.textLower[iTextForWriteOnceLOWER]){
+        //         if(textForWriteOnce.textLower[iTextForWriteOnceLOWER] == 'f'){
+        //             textContainer.style.width = `448px`
+        //         }
+        //         textForEdit.innerHTML = textForEdit.innerHTML + textForWriteOnce.textLower[iTextForWriteOnceLOWER]
+        //         iTextForWriteOnceLOWER ++
+        //     }
+        //     else{
+        //         stick.style.cssText = `animation-name: turnOnOffStick;`
+        //         clearInterval(writingUpperLetters)
+        //         setTimeout(() => {
+        //             deleteLetters()
+        //         }, 2000);
                 
-            }
-        }
-
-
-    }, 100)
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-let str
-let deleteLettersInterval
-
-deleteLetters = () => {
-    str = textForEdit.innerHTML 
-    stick.style.cssText = `animation-name:none;`
-    str = str.slice(0, str.length - 1);
-    textForEdit.innerHTML = str
-    setTimeout(() => {
-        deleteLettersInterval = setInterval(() => {
-            str = str.slice(0, str.length - 1);
-            textForEdit.innerHTML = str
-            stopDeleteLetters()
-        }, 50);
-    }, 250);
-
-}
-
-stopDeleteLetters = () =>{
-    str = textForEdit.innerHTML 
-    if(str.split('')[str.length - 1] == ' '){
-        stick.style.cssText = `animation-name: turnOnOffStick;`
-        clearInterval(deleteLettersInterval)
-        str = str.slice(0, str.length - 1)
-        textForEdit.innerHTML = str
-        textForEdit.innerHTML = textForEdit.innerHTML + " "
-
-        setTimeout(() => {
-            startWriteLetters()
-            stick.style.cssText = `animation-name:none;`
-        }, 500);
-    }
-    else{
-    }
-}
-
-const textForChange = [{
-    text:"front-end",
-    letterAmount: 9
-},{
-    text:"back-end",
-    letterAmount: 8
-},{
-    text:"full-stack",
-    letterAmount: 10
-}]
+        //     }
+        // }
+    }, 60)
     
-let iTextForChange = 0
-let iText
-
-startWriteLetters = () =>{
-    let iText = 0
-    str = str + ' '
-    let writingLetters = setInterval(() => {
-        if(typeof(textForChange[iTextForChange].text[iText]) == 'string'){
-            textForEdit.innerHTML = textForEdit.innerHTML + textForChange[iTextForChange].text[iText]
-            str = str + textForChange[iTextForChange].text[iText]
-            iText++
-        }
-        else{
-            stick.style.cssText = `animation-name: turnOnOffStick;`
-            clearInterval(writingLetters)
-            setTimeout(() => {
-                deleteLetters()
-            }, 2000);
-            if(iTextForChange == 0){
-                iTextForChange++
-            }
-            else if(iTextForChange == 1){
-                iTextForChange++
-            }
-            else{
-                iTextForChange = 0
-            }
-        }
-    }, 100)
 }
 
-// deleteLetters()
+
+writePresentationLetter = () => {
+    textUpperOnce.style.width = '466px'
+    const text = "Especialista en Ciberseguridad";
+    const stopText = "Especialista ";
+    const newText = "Desarrollador";
+    const additionalText = " full-stack";
+    const finalText = " en Ciberseguridad";
+    const textForEdit = document.querySelector(".text-for-edit");
+    const randomChars = "!@#$%1&?/0";
+    let index = 0;
+    let initialDelete = true;
+
+    function typeWriter() {
+        if (index < text.length) {
+            textForEdit.innerHTML += text.charAt(index);
+            index++;
+            setTimeout(typeWriter, 60); // Ajusta el tiempo aquí para cambiar la velocidad de escritura
+        } else {
+            stick.style.cssText = `animation-name: turnOnOffStick;`
+            setTimeout(deleteText, 2000); // Espera 2 segundos antes de empezar a borrar el texto
+        }
+    }
+
+    function deleteText() {
+        stick.style.cssText = `animation-name: none;`
+        if (index > stopText.length) {
+            textForEdit.innerHTML = text.substring(0, index - 1);
+            index--;
+            if (initialDelete) {
+                initialDelete = false;
+                setTimeout(deleteText, 500); // Espera 0.5 segundos antes de borrar el resto
+            } else {
+                setTimeout(deleteText, 30); // Ajusta el tiempo aquí para cambiar la velocidad de borrado
+            }
+        } else {
+            stick.style.cssText = `animation-name: turnOnOffStick;`
+            initialDelete = true; // Resetea para el próximo ciclo
+            setTimeout(transformText, 500); // Espera 0.5 segundos antes de empezar la transformación
+        }
+    }
+
+    function getRandomChar() {
+        return randomChars[Math.floor(Math.random() * randomChars.length)];
+    }
+
+    function transformText() {
+        let scrambleCount = 0;
+        const interval = setInterval(() => {
+            let scrambled = '';
+            for (let i = 0; i < stopText.length; i++) {
+                if (scrambleCount < 5 || Math.random() > 0.5) {
+                    scrambled += getRandomChar();
+                } else {
+                    scrambled += newText[i];
+                }
+            }
+            textForEdit.innerHTML = scrambled;
+            scrambleCount++;
+            if (scrambleCount >= 10) {
+                clearInterval(interval);
+                textForEdit.innerHTML = newText;
+                setTimeout(() => {
+                    typeAdditionalText();
+                }, 1000); // Espera 1 segundo antes de empezar a escribir "full-stack"
+            }
+        }, 100);
+    }
+
+    function typeAdditionalText() {
+        stick.style.cssText = `animation-name: none;`
+        let additionalIndex = 0;
+        function typeFullStack() {
+            if (additionalIndex < additionalText.length) {
+                textForEdit.innerHTML += additionalText.charAt(additionalIndex);
+                additionalIndex++;
+                setTimeout(typeFullStack, 60); // Ajusta el tiempo aquí para cambiar la velocidad de escritura
+            } else {
+                stick.style.cssText = `animation-name: turnOnOffStick;`
+                setTimeout(deleteFullStack, 2000); // Espera 1 segundo antes de empezar a borrar "full-stack"
+            }
+        }
+        typeFullStack();
+    }
+
+    function deleteFullStack() {
+        stick.style.cssText = `animation-name: none;`
+        let fullStackIndex = additionalText.length;
+        textForEdit.innerHTML = newText + additionalText.substring(0, fullStackIndex - 1);
+        fullStackIndex--;
+        setTimeout(() => {
+            const interval = setInterval(() => {
+                textForEdit.innerHTML = newText + additionalText.substring(0, fullStackIndex - 1);
+                fullStackIndex--;
+                if (fullStackIndex <= 0) {
+                    clearInterval(interval);
+                    stick.style.cssText = `animation-name: turnOnOffStick;`
+                    setTimeout(() => {
+                        transformToSpecialista();
+                    }, 500); // Espera 0.5 segundos antes de empezar la transición a "Especialista"
+                }
+            }, 30); // Ajusta el tiempo aquí para cambiar la velocidad de borrado 
+        }, 500);
+
+    }
+
+    function transformToSpecialista() {
+        let scrambleCount = 0;
+        const interval = setInterval(() => {
+            let scrambled = '';
+            for (let i = 0; i < stopText.length; i++) {
+                if (scrambleCount < 5 || Math.random() > 0.5) {
+                    scrambled += getRandomChar();
+                } else {
+                    scrambled += stopText[i];
+                }
+            }
+            textForEdit.innerHTML = scrambled;
+            scrambleCount++;
+            if (scrambleCount >= 10) {
+                clearInterval(interval);
+                textForEdit.innerHTML = stopText;
+                setTimeout(() => {
+                    typeFinalText();
+                }, 1000); // Espera 1 segundo antes de empezar a escribir "full-stack"
+            }
+        }, 100);
+    }
+
+
+
+
+    function typeFinalText() {
+        stick.style.cssText = `animation-name: none;`
+        let finalIndex = 0;
+        function typeSecurityText() {
+            if (finalIndex < finalText.length) {
+                textForEdit.innerHTML = stopText + finalText.substring(0, finalIndex + 1);
+                finalIndex++;
+                setTimeout(typeSecurityText, 60); // Ajusta el tiempo aquí para cambiar la velocidad de escritura
+            } else {
+                stick.style.cssText = `animation-name: turnOnOffStick;`
+                setTimeout(deleteFinalText, 2000); // Espera 1 segundo antes de empezar a borrar "en Ciberseguridad"
+            }
+        }
+        typeSecurityText();
+    }
+
+    function deleteFinalText() {
+        stick.style.cssText = `animation-name: none;`
+        let finalTextIndex = finalText.length;
+        textForEdit.innerHTML = stopText + finalText.substring(0, finalTextIndex - 1);
+        finalTextIndex--;
+        setTimeout(() => {
+            const interval = setInterval(() => {
+                textForEdit.innerHTML = stopText + finalText.substring(0, finalTextIndex - 1);
+                finalTextIndex--;
+                if (finalTextIndex <= 0) {
+                    clearInterval(interval);
+                    stick.style.cssText = `animation-name: turnOnOffStick;`
+                    setTimeout(() => {
+                        transformText();
+                    }, 500); // Espera 0.5 segundos antes de empezar de nuevo
+                }
+            }, 30); // Ajusta el tiempo aquí para cambiar la velocidad de borrado
+        }, 500)
+    }
+
+    // Inicia el proceso
+    typeWriter();
+}
 
 
 
@@ -291,72 +334,138 @@ startWriteLetters = () =>{
 
 
 
-// aparecer las figuras del fondo
 
-// const figure1 = document.querySelector(".figure1");
-// const figure2 = document.querySelector(".figure2");
-// const figure3 = document.querySelector(".figure3");
-// const figure4 = document.querySelector(".figure4");
-// const figure5 = document.querySelector(".figure5");
-// const figure6 = document.querySelector(".figure6");
-// const figure7 = document.querySelector(".figure7");
-// const figure8 = document.querySelector(".figure8");
-// const figure9 = document.querySelector(".figure9");
-// const figure10 = document.querySelector(".figure10");
-// const tagsContainer = document.querySelector(".tags-container");
-// const tag1 = document.querySelector(".tag1");
-// const tag2 = document.querySelector(".tag2");
-// const tag3 = document.querySelector(".tag3");
-// const tag4 = document.querySelector(".tag4");
-// const tag5 = document.querySelector(".tag5");
-// const tag6 = document.querySelector(".tag6");
-// const tag7 = document.querySelector(".tag7");
-// const tag8 = document.querySelector(".tag8");
-// const tag9 = document.querySelector(".tag9");
 
-// const appearFigures = () => {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// let str
+// let deleteLettersInterval
+
+// deleteLetters = () => {
+//     str = textForEdit.innerHTML 
+//     stick.style.cssText = `animation-name:none;`
+//     str = str.slice(0, str.length - 1);
+//     textForEdit.innerHTML = str
 //     setTimeout(() => {
-//         figure3.style.opacity = 1
-//         setTimeout(() => {
-//             figure4.style.opacity = 1
-//             setTimeout(() => {
-//                 figure5.style.opacity = 1
-//                 setTimeout(() => {
-//                     figure6.style.opacity = 1
-//                     setTimeout(() => {
-//                         figure7.style.opacity = 1
-//                         setTimeout(() => {
-//                             figure1.style.opacity = 1
-//                             setTimeout(() => {
-//                                 figure2.style.opacity = 1
-//                                 setTimeout(() => {
-//                                     figure8.style.opacity = 1
-//                                     tag1.style.opacity = 1
-//                                     tag5.style.opacity = 1
-//                                     setTimeout(() => {
-//                                         tag7.style.opacity = 1
-//                                         tag3.style.opacity = 1
-//                                         figure9.style.opacity = 1
-//                                         setTimeout(() => {
-//                                             tag2.style.opacity = 1
-//                                             tag4.style.opacity = 1
-//                                             tag9.style.opacity = 1
-//                                             figure10.style.opacity = 1
-//                                             setTimeout(() => {
-//                                                 tag8.style.opacity = 1
-//                                                 tag6.style.opacity = 1
-//                                             }, 500);
-//                                         }, 500);
-//                                     }, 500);
-//                                 }, 500);
-//                             }, 500);
-//                         }, 500);
-//                     }, 1500);
-//                 }, 100);
-//             }, 100);
-//         }, 100);
-//     }, 500);
+//         deleteLettersInterval = setInterval(() => {
+//             str = str.slice(0, str.length - 1);
+//             textForEdit.innerHTML = str
+//             stopDeleteLetters()
+//         }, 50);
+//     }, 250);
+//     if(str.length == 0){
+//         clearInterval(deleteLettersInterval)
+//         stopDeleteLetters()
+//     }
 // }
+
+// stopDeleteLetters = () =>{
+//     str = textForEdit.innerHTML 
+//     if(str.split('')[str.length - 1] == ' '){
+//         stick.style.cssText = `animation-name: turnOnOffStick;`
+//         clearInterval(deleteLettersInterval)
+//         str = str.slice(0, str.length - 1)
+//         textForEdit.innerHTML = str
+//         textForEdit.innerHTML = textForEdit.innerHTML + " "
+    
+//         setTimeout(() => {
+//             startWriteLetters()
+//             stick.style.cssText = `animation-name:none;`
+//         }, 500);
+        
+//     }
+    
+//     else if(str.length == 0){
+//         stick.style.cssText = `animation-name: turnOnOffStick;`
+//             clearInterval(deleteLettersInterval)
+//             str = str.slice(0, str.length - 1)
+//             textForEdit.innerHTML = str
+//             textForEdit.innerHTML = textForEdit.innerHTML + " "
+//     }
+//     else{
+//     }
+// }
+
+// const textForChange = [{
+//     text:"Desarrollador front-end",
+//     letterAmount: 9
+// },{
+//     text:"back-end",
+//     letterAmount: 8
+// },{
+//     text:"full-stack",
+//     letterAmount:8 
+// },{
+//     text:"Especialista en Ciberseguridad",
+//     letterAmount: 11
+// }]
+    
+// let iTextForChange = 0
+// let iText
+
+// startWriteLetters = () =>{
+//     let iText = 0
+//     str = str + ' '
+//     let writingLetters = setInterval(() => {
+//         if(typeof(textForChange[iTextForChange].text[iText]) == 'string'){
+//             textForEdit.innerHTML = textForEdit.innerHTML + textForChange[iTextForChange].text[iText]
+//             str = str + textForChange[iTextForChange].text[iText]
+//             iText++
+            
+//         }
+//         else{
+//             stick.style.cssText = `animation-name: turnOnOffStick;`
+//             clearInterval(writingLetters)
+//             setTimeout(() => {
+//                 deleteLetters()
+//             }, 2000);
+//             if(iTextForChange == 0){
+//                 iTextForChange++
+//             }
+//             else if(iTextForChange == 1){
+//                 iTextForChange++
+//             }
+//             else if(iTextForChange == 2){
+//                 iTextForChange++
+//             }
+//             else{
+//                 iTextForChange = 0
+//             }
+//         }
+//     }, 100)
+// }
+
+
 
 const figure3 = document.querySelector(".figure3");
 const figure4 = document.querySelector(".figure4");
@@ -375,6 +484,8 @@ const tag6 = document.querySelector(".tag6");
 const tag7 = document.querySelector(".tag7");
 const tag8 = document.querySelector(".tag8");
 const tag9 = document.querySelector(".tag9");
+const tag10 = document.querySelector(".tag10");
+const tag11 = document.querySelector(".tag11");
 
 const appearFigures = () => {
     setTimeout(() => {
@@ -393,6 +504,7 @@ const appearFigures = () => {
                             setTimeout(() => {
                                 tag7.style.opacity = 1
                                 tag3.style.opacity = 1
+                                tag11.style.opacity = 1
                                 setTimeout(() => {
                                     tag2.style.opacity = 1
                                     tag4.style.opacity = 1
@@ -400,6 +512,7 @@ const appearFigures = () => {
                                     setTimeout(() => {
                                         tag8.style.opacity = 1
                                         tag6.style.opacity = 1
+                                        tag10.style.opacity = 1
                                     }, 500);
                                 }, 500);
                             }, 500);
@@ -411,11 +524,11 @@ const appearFigures = () => {
     }, 500);
 }
 
-window.addEventListener("load",()=>{
-    setTimeout(() => {
-        writeUpperLetters()
-    }, 1000);
-})
+
+setTimeout(() => {
+    writeUpperLetters()
+}, 1000);
+
 
 
 
@@ -823,7 +936,8 @@ proyectCard5.addEventListener("mouseout",()=>{
 
 
 const seeMoreProyectsContainer = document.querySelector(".see-more-proyects-container");
-const seeMoreProyectsButton = document.querySelector(".see-more-proyects-button");
+const seeMoreProyectsButton = document.getElementById("see-more-proyects-button");
+
 let seeMoreProyectsCounter = 0
 
 seeMoreProyectsButton.addEventListener("click",()=>{
@@ -856,12 +970,35 @@ seeMoreProyectsButton.addEventListener("click",()=>{
 
 
 
+// Seleccionar los elementos que contienen los códigos de los certificados
+let verifyButton1 = document.querySelector(".verify-cert-1");
+let verifyButton2 = document.querySelector(".verify-cert-2");
+let verifyButton3 = document.querySelector(".verify-cert-3");
 
+// Función para copiar el código de los certificados al portapapeles
+function copiarCodigos(event) {
+    // Obtener el código correspondiente al botón que se presionó
+    let textoParaCopiar = event.target.textContent.trim();  // Usamos el texto dentro de la etiqueta <p>
 
+    // Usar la API Clipboard para copiar el texto al portapapeles
+    navigator.clipboard.writeText(textoParaCopiar).then(() => {
+        // Guardamos el contenido original (texto y el ícono)
+        let botonOriginalHTML = event.target.innerHTML; // Guardamos el HTML completo (incluido el icono)
+        event.target.innerHTML = '<i class="fa-solid fa-check"></i> ¡Código Copiado!'; // Cambiar el HTML
 
+        // Esperar 2 segundos y volver al estado original
+        setTimeout(() => {
+            event.target.innerHTML = botonOriginalHTML; // Restaurar el contenido original (incluido el icono)
+        }, 2000);
+    }).catch(err => {
+        console.error("Error al copiar al portapapeles: ", err);
+    });
+}
 
-
-
+// Event listeners para los botones
+verifyButton1.addEventListener("click", copiarCodigos);
+verifyButton2.addEventListener("click", copiarCodigos);
+verifyButton3.addEventListener("click", copiarCodigos);
 
 
 
@@ -922,29 +1059,54 @@ phoneNumberIcon.addEventListener("click",()=>{
 
 
 // HACER APARECER LAS IMAGENENS DE LA SEECCION DE EXPERIENCIA
-const img1Exp = document.querySelector(".img-div-container1")
-const img2Exp = document.querySelector(".img-div-container2")
-const img3Exp = document.querySelector(".card-smartphone-img-container")
+const img1Exp1 = document.querySelector(".img-div-container-1--1")
+const img2Exp1 = document.querySelector(".img-div-container-1--2")
+const img3Exp1 = document.querySelector(".card-smartphone-img-container-1")
 
-const imgShadow1Exp = document.querySelector(".shadow1")
-const imgShadow2Exp = document.querySelector(".shadow2")
+const img1Exp2 = document.querySelector(".img-div-container-2--1")
+const img2Exp2 = document.querySelector(".img-div-container-2--2")
+const img3Exp2 = document.querySelector(".card-smartphone-img-container-2")
+
+const imgShadow1Exp1 = document.querySelector(".shadow1-1")
+const imgShadow2Exp1 = document.querySelector(".shadow2-1")
+const imgShadow3Exp1 = document.querySelector(".shadow3-1")
+
+const imgShadow1Exp2 = document.querySelector(".shadow1-2")
+const imgShadow2Exp2 = document.querySelector(".shadow2-2")
+const imgShadow3Exp2 = document.querySelector(".shadow3-2")
 
 let ExpSectionContainerIsVisible = false
 
 const appearImgsExpContainer = () => {
+
+
+    img1Exp2.style.transform = 'rotate3d(2, 1, 1, -0.1turn) translate(-140px,-260px)'
+    imgShadow1Exp2.style.transform = 'rotate3d(2, 1, 1, -0.1turn) translate(0px,35px)'
+    img2Exp2.style.transform = 'rotate3d(2, 1, 1, -0.05turn) scale(0.9) translate(-220px, -340px)'
+    imgShadow2Exp2.style.transform = 'rotate3d(5, 1, 1, -0.05turn) scale(0.9) translate(-25px, -15px)'
+    img3Exp2.style.transform = 'translate(-200px,260px)'
+
     if(ExpSectionContainerIsVisible == true){
-        img3Exp.style.opacity = 1
-        img3Exp.style.transform = 'translate(-200px,260px)'
+        img3Exp1.style.opacity = 1
+        img3Exp1.style.transform = 'translate(-200px,260px)'
+        img3Exp2.style.opacity = 1
+        
         setTimeout(() => {
-            img1Exp.style.opacity = 1
-            imgShadow1Exp.style.opacity = 1
-            img1Exp.style.transform = 'rotate3d(2, 1, 1, -0.1turn) translate(-140px,-260px)'
-            imgShadow1Exp.style.transform = 'rotate3d(2, 1, 1, -0.1turn) translate(0px,35px)'
+            img1Exp1.style.opacity = 1
+            imgShadow1Exp1.style.opacity = 1
+            img1Exp1.style.transform = 'rotate3d(2, 1, 1, -0.1turn) translate(-140px,-260px)'
+            imgShadow1Exp1.style.transform = 'rotate3d(2, 1, 1, -0.1turn) translate(0px,35px)'
+            imgShadow1Exp2.style.opacity = 1
+            img1Exp2.style.opacity = 1
+            
             setTimeout(() => {
-                img2Exp.style.opacity = .7
-                imgShadow2Exp.style.opacity = 1
-                img2Exp.style.transform = 'rotate3d(2, 1, 1, -0.05turn) scale(0.9) translate(-220px, -340px)'
-                imgShadow2Exp.style.transform = 'rotate3d(5, 1, 1, -0.05turn) scale(0.9) translate(-25px, -15px)'
+                img2Exp1.style.opacity = .8
+                imgShadow2Exp1.style.opacity = 1
+                img2Exp1.style.transform = 'rotate3d(2, 1, 1, -0.05turn) scale(0.9) translate(-220px, -340px)'
+                imgShadow2Exp1.style.transform = 'rotate3d(5, 1, 1, -0.05turn) scale(0.9) translate(-25px, -15px)'
+                img2Exp2.style.opacity = .8
+                imgShadow2Exp2.style.opacity = 1
+
             }, 250);
         }, 250);
         
@@ -963,3 +1125,80 @@ const observerExpSection = new IntersectionObserver(appearImgsExpContainer,{
     threshold: 0.5
 })
 observerExpSection.observe(expSectionContainer)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// sepador binario
+
+document.addEventListener('DOMContentLoaded', () => {
+    const binaryText = document.getElementById('binary-text');
+    const text = '01100100 01100001 01101110 01101001 01100101 01101100 01100100 01100001 01101110 01101001 01100101 01101100 01100100 01100001 01101110 01101001 01100101 01101100';
+
+    // Duplicar el texto para crear un efecto de transición infinita
+    binaryText.innerHTML = text + text;
+
+    // Genera una cadena de texto con clases aleatorias para el parpadeo y glitch
+    const characters = binaryText.innerHTML.split('');
+    const updatedText = characters.map((char, index) => {
+        let newChar = char;
+        if (Math.random() < 0.3) { // Ajusta la probabilidad de parpadeo (0.3 = 30%)
+            newChar = `<span class="blink">${char}</span>`;
+        }
+        if (Math.random() < 0.1) { // Ajusta la probabilidad de glitch (0.1 = 10%)
+            newChar = `<span class="glitch" data-char="${char}">${char}</span>`;
+        }
+        return newChar;
+    }).join('');
+    
+    binaryText.innerHTML = updatedText;
+
+    // Función para generar el efecto glitch
+    const glitchEffect = () => {
+        const glitchChars = document.querySelectorAll('.glitch');
+        glitchChars.forEach(char => {
+            setTimeout(() => {
+                char.textContent = String.fromCharCode(Math.floor(Math.random() * (126 - 33) + 33)); // Caracter aleatorio
+                setTimeout(() => {
+                    char.textContent = char.getAttribute('data-char'); // Volver al caracter original
+                }, Math.random() * 500); // Duración aleatoria del glitch
+            }, Math.random() * 2000); // Intervalo aleatorio del glitch
+        });
+    };
+
+    // Iniciar el efecto glitch
+    setInterval(glitchEffect, 2000);
+});
+

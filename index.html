@@ -12,7 +12,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
-    <!-- - - - CMD FONT AWESOME - - - -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- - - - FAVICON - - - -->
     <link rel="icon" href="assets/favicon/favicon.png">
@@ -20,6 +19,15 @@
     <title>Portfolio</title>
 </head>
 <body translate="no">
+
+<!-- Botón flotante con animación de cambio de icono -->
+
+<button id="scrollToCertBtn" class="scroll-to-cert-btn">
+    <i class="fas fa-file-alt icon icon-left"></i>  <!-- Icono inicial (archivo) -->
+    <i class="fas fa-arrow-down icon icon-right"></i> <!-- Icono del scroll (flecha hacia abajo) -->
+</button>
+
+
 
     <div class="main-container" id="welcome-section-container">
         <header class="header">
@@ -42,7 +50,7 @@
     
                     <div class="links-container">
                         <p>4</p>
-                        <a href="#certificates-section-container">// Certificados</a>
+                        <a href="#certificados">// Certificados</a>
                     </div>
                     
                     <div class="links-container">
@@ -65,7 +73,7 @@
             <a class="links-menu" href="#welcome-section-container">Inicio</a>
             <a class="links-menu" href="#exp-section-container">Experiencia</a>
             <a class="links-menu" href="#proyects-section-container">Proyectos</a>
-            <a class="links-menu" href="#contact-section-container">Certificados</a>
+            <a class="links-menu" href="#certificados">Certificados</a>
             <a class="links-menu" target="_blank" href="https://drive.google.com/file/d/18x2Q1GdgLzB8zFVonBmAz4vrKa6JLcE6/view?usp=sharing">Currículum Vitae</a>
         </div>
         <div class="blur-for-menu"></div>
@@ -338,7 +346,7 @@
             </div>
             <div class="title-sec-proyects-subtitle-container comment-html-decoration-container">
                 <div class="proyect-subtitle-decoration-container comment-html-decoration">&#60;&#33;&#45;&#45;</div>
-                <p class="proyect-subtitle decorated-subtitle">En los que he trabajado</p>
+                <p class="proyect-subtitle decorated-subtitle">En los que he <i>trabajado</i></p>
                 <div class="proyect-subtitle-decoration-container comment-html-decoration">&#45;&#45;&#62;</div>
             </div>
         </div>
@@ -557,7 +565,7 @@
                 <button id="see-more-proyects-button" class="see-more-proyects-button">PRESIONA AQUÍ</button>
                 <div class="comment-html-decoration-container">
                     <div class="proyect-subtitle-decoration-container comment-html-decoration">&#60;&#33;&#45;&#45;</div>
-                    <p class="proyect-subtitle decorated-subtitle">Para ver más proyectos</p>
+                    <p class="proyect-subtitle decorated-subtitle">Para ver más <i>proyectos</i></p>
                     <div class="proyect-subtitle-decoration-container comment-html-decoration">&#45;&#45;&#62;</div>
                 </div> 
             </div>
@@ -579,7 +587,7 @@
                     </svg>
                 </div>
 
-                <div class="exp-title-container certificates-title-container">    
+                <div class="exp-title-container certificates-title-container" id="certificados">    
                     <div class="exp-decoration-container p-decoration p-decoration-certificates">&#60;h2&#62;</div>
                     <p class="exp-title decorated-title">CERTIFICADOS</p>
                     <div class="exp-decoration-container p-decoration p-decoration-certificates">&#60;&#47;h2&#62;</div>
@@ -606,11 +614,31 @@
                                     <a href="https://drive.google.com/file/d/1_Z99ax8Ekun7-N1gaGLx37Z-Otxkp5L0/view" class="btn" target="_blank">
                                         <i class="fas fa-file-pdf"></i> Ver certificado
                                     </a>
-                                    <p class="verify-cert btn verify-cert-3 cert-number"><i class="fa-regular fa-copy"></i> 4504-2640-3403-2048</p>
+                                    <p class="verify-cert btn verify-cert-1 cert-number"><i class="fa-regular fa-copy"></i> 4504-2640-3403-2048</p>
                                 </div>
                                 <div class="card-image">
-                                    <a href="https://drive.google.com/file/d/1_Z99ax8Ekun7-N1gaGLx37Z-Otxkp5L0/view">
+                                    <a href="https://drive.google.com/file/d/1_Z99ax8Ekun7-N1gaGLx37Z-Otxkp5L0/view" target="_blank">
                                         <img src="./assets/certificates-img/cert-3.png" alt="Certificado de Personalización de entorno en Linux">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="card-text">
+                                    <p class="date">Finalización: 09/02/2025</p>
+                                    <h2 class="title">Curso de Python Ofensivo</h2>
+                                    <p class="description">Certificado en Python Ofensivo, centrado en el desarrollo de herramientas para pentesting, automatización de ataques y explotación de vulnerabilidades con Python.</p>
+                                    <a href="https://drive.google.com/file/d/1POyyVZszJtgV0tRPXH46xSBbrNEtuPTC/view?usp=sharing" class="btn" target="_blank">
+                                        <i class="fas fa-file-pdf"></i> Ver certificado
+                                    </a>
+                                    <p class="verify-cert btn verify-cert-2 cert-number"><i class="fa-regular fa-copy"></i> 1392-5466-3623-3975</p>
+                                </div>
+                                <div class="card-image">
+                                    <a href="https://drive.google.com/file/d/1POyyVZszJtgV0tRPXH46xSBbrNEtuPTC/view?usp=sharing" target="_blank">
+                                        <img src="./assets/certificates-img/cert-4.png" alt="Certificado de Python Ofensivo">
                                     </a>
                                 </div>
                             </div>
@@ -625,10 +653,10 @@
                                     <a href="https://drive.google.com/file/d/1hcpLP4jv41ZIWMCZ0YTU44xoXcv-pIkC/view" class="btn" target="_blank">
                                         <i class="fas fa-file-pdf"></i> Ver certificado
                                     </a>
-                                    <p class="verify-cert btn verify-cert-2 cert-number"><i class="fa-regular fa-copy"></i> 1360-2020-7947-3576</p>
+                                    <p class="verify-cert btn verify-cert-3 cert-number"><i class="fa-regular fa-copy"></i> 1360-2020-7947-3576</p>
                                 </div>
                                 <div class="card-image">
-                                    <a href="https://drive.google.com/file/d/1hcpLP4jv41ZIWMCZ0YTU44xoXcv-pIkC/view">
+                                    <a href="https://drive.google.com/file/d/1hcpLP4jv41ZIWMCZ0YTU44xoXcv-pIkC/view" target="_blank">
                                         <img src="./assets/certificates-img/cert-2.png" alt="Certificado de Personalización de entorno en Linux">
                                     </a>
                                 </div>
@@ -644,18 +672,15 @@
                                     <a href="https://drive.google.com/file/d/1jKwOlYnl9t3IbCELHaf4CCvMHWIsJkJs/view?usp=sharing" class="btn" target="_blank">
                                         <i class="fas fa-file-pdf"></i> Ver certificado
                                     </a>
-                                    <p class="verify-cert btn verify-cert-1 cert-number"><i class="fa-regular fa-copy"></i> 3454-3986-1987-5371</p>
+                                    <p class="verify-cert btn verify-cert-4 cert-number"><i class="fa-regular fa-copy"></i> 3454-3986-1987-5371</p>
                                 </div>
                                 <div class="card-image">
-                                    <a href="https://drive.google.com/file/d/1jKwOlYnl9t3IbCELHaf4CCvMHWIsJkJs/view?usp=sharing">
+                                    <a href="https://drive.google.com/file/d/1jKwOlYnl9t3IbCELHaf4CCvMHWIsJkJs/view?usp=sharing" target="_blank">
                                         <img src="./assets/certificates-img/cert-1.png" alt="Certificado de Personalización de entorno en Linux">
                                     </a>
                                 </div>
                             </div>
                         </div>
-
-
-
 
 
 
@@ -670,9 +695,15 @@
                 <div class="validate-cert-container">
                     <a href="https://hack4u.io/check-certificate/" target="_blank" class="see-more-proyects-button">VALIDAR CERTIFICADOS</a>
                     <div class="comment-html-decoration-container">
-                        <div class="proyect-subtitle-decoration-container comment-html-decoration">&#60;&#33;&#45;&#45;</div>
-                        <p class="proyect-subtitle decorated-subtitle">Copia el código del certificado!</p>
-                        <div class="proyect-subtitle-decoration-container comment-html-decoration">&#45;&#45;&#62;</div>
+                        <div class="container-for-decoration">
+                            <div class="proyect-subtitle-decoration-container comment-html-decoration">&#60;&#33;&#45;&#45;</div>
+                            <p class="proyect-subtitle decorated-subtitle">Copiá el código</p>
+                        </div>
+                        
+                        <div class="container-for-decoration">
+                            <p class="proyect-subtitle decorated-subtitle">del <i>certificado</i>!</p>
+                            <div class="proyect-subtitle-decoration-container comment-html-decoration">&#45;&#45;&#62;</div>
+                        </div>
                     </div> 
                 </div>
 

@@ -32,6 +32,130 @@ body::-webkit-scrollbar-thumb{
 
 
 
+/* - - - - - - - - - - - - - - BOTON FLOTANTE - - - - - - - - - - - - - - */
+
+/* Estilos para el botón flotante */
+.scroll-to-cert-btn {
+    position: fixed;
+    bottom: 20px; /* Se coloca en la parte inferior */
+    right: 20px; /* Se coloca en la parte derecha */
+    width: 60px; /* Tamaño del botón */
+    height: 60px; /* Tamaño del botón */
+    background-color: #00ffff; /* Color de fondo */
+    color: rgb(22, 21, 29); /* Color del icono */
+    border: none; /* Sin borde */
+    border-radius: 50%; /* Hacemos que sea un círculo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer; /* Cambia el cursor para indicar que es clickeable */
+    box-shadow: 0 0px 6px rgba(0, 0, 0, 0.5); /* Sombra para darle profundidad */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    overflow: hidden; /* Para evitar que los iconos sobresalgan */
+    z-index: 1000;
+    font-size: 25px;
+}
+
+/* Efecto hover: cuando pasamos el ratón sobre el botón */
+.scroll-to-cert-btn:hover {
+    background-color: rgb(22, 21, 29); /* Color del icono */
+    color: #00ffff; /* Color de fondo */
+    transform: scale(1.1); /* Aumenta ligeramente el tamaño al pasar el ratón */
+    border: 2px solid #00ffff; /* Añade un borde al botón */
+    box-shadow: none;
+}
+
+/* Estilo común para los iconos, para que ocupen el mismo espacio */
+.scroll-to-cert-btn .icon {
+    position: absolute; /* Los iconos deben estar en la misma posición */
+    transition: transform 0.3s ease, opacity 0.3s ease; /* Transición para el deslizamiento y opacidad */
+    opacity: 0; /* Inicialmente, ambos iconos están ocultos */
+}
+
+/* Icono de archivo (archivo) que está visible por defecto */
+.scroll-to-cert-btn .icon-left {
+    transform: translateX(0); /* El icono de archivo está en su lugar */
+    opacity: 1; /* El icono de archivo es visible */
+}
+
+/* Icono de la flecha (que está oculto inicialmente) */
+.scroll-to-cert-btn .icon-right {
+    transform: translateX(100%); /* El icono de la flecha está fuera de la vista */
+    opacity: 0; /* El icono de la flecha está oculto */
+}
+
+/* Cuando se hace hover sobre el botón */
+.scroll-to-cert-btn:hover .icon-left {
+    transform: translateX(-100%); /* Desliza el icono de archivo hacia la izquierda */
+    opacity: 0; /* Oculta el icono de archivo */
+}
+
+.scroll-to-cert-btn:hover .icon-right {
+    transform: translateX(0); /* Desliza el icono de la flecha hacia la vista */
+    opacity: 1; /* Muestra el icono de la flecha */
+}
+
+/* Efecto de "clicado" (cuando se presiona el botón) */
+.scroll-to-cert-btn:active {
+    transform: scale(1.05); /* Hace que el botón se haga un poco más pequeño cuando se presiona */
+}
+
+/* Clase para ocultar el botón cuando se hace scroll */
+.hidden {
+    display: none;
+}
+
+/* Transición suave para la flecha */
+.icon-right {
+    transition: transform 0.3s ease;
+}
+
+/* Flecha apuntando hacia arriba */
+.rotate-up {
+    transform: rotate(180deg);
+}
+
+@keyframes bounce-twice {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    10% {
+        transform: translateY(-5px);
+    }
+    20% {
+        transform: translateY(0);
+    }
+    30% {
+        transform: translateY(-3px);
+    }
+    40% {
+        transform: translateY(0);
+    }
+    50%, 100% {
+        transform: translateY(0);
+    }
+}
+
+/* Aplicamos la animación con pausas entre repeticiones */
+.icon-left {
+    animation: bounce-twice 2s ease-in-out infinite;
+}
+
+/* Cuando el botón ha sido presionado, removemos la animación */
+.no-bounce .icon-left {
+    animation: none;
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -233,6 +357,7 @@ nav .links-container:hover > a, nav .links-container:hover{
     gap: 20px 0;
     position: relative;
     z-index: 500;
+    cursor:default;
 }
 
 .text-contaiener{
@@ -315,6 +440,7 @@ nav .links-container:hover > a, nav .links-container:hover{
     animation-timing-function: ease-in-out;
 
     transform: translate(0);
+    cursor:default;
 }
 
 .tag:hover{
@@ -1103,6 +1229,30 @@ nav .links-container:hover > a, nav .links-container:hover{
     flex-direction: column;
 }
 
+.validate-cert-container .comment-html-decoration-container{
+    flex-direction: column;
+}
+
+.validate-cert-container .comment-html-decoration-container{
+    gap: 4px;
+}
+
+.validate-cert-container .comment-html-decoration-container .container-for-decoration{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.comment-html-decoration-container i{
+    background-color: rgba(255, 255, 255, 0.048);
+    padding: 0 6px;
+    padding-bottom: 2px;
+    color: #568299;
+    border-radius: 10px;
+}
+
+
+
 /* proyect-cards - - - - - - -  - - -  - - - - - - -  - - */
 
 .proyect-card{
@@ -1347,6 +1497,11 @@ nav .links-container:hover > a, nav .links-container:hover{
 }
 
 
+/* Estilo para el botón deshabilitado */
+.verify-cert.disabled {
+    pointer-events: none; /* Desactiva los clics */
+    opacity: 0.5; /* Hace que el botón se vea más transparente */
+}
 
 
 
@@ -1462,7 +1617,9 @@ nav .links-container:hover > a, nav .links-container:hover{
 @media (min-width: 800px) {
     .certificates-title-container{
         transform: translate(0, -160px);
+        
     }
+
 }
 
 .verify-cert{
@@ -1620,6 +1777,11 @@ nav .links-container:hover > a, nav .links-container:hover{
 @media (max-width: 600px) {
     .container {
         grid-template-columns: 1fr;
+    }
+    .scroll-to-cert-btn{
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
     }
 }
 

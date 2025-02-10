@@ -28,6 +28,56 @@ window.onscroll = function(){
 };
 
 
+// - - - - - - - - BOTON DE CERTIFICADO - - - - - - - - //
+
+// Seleccionamos el botón y la sección de certificados
+const scrollToCertBtn = document.getElementById('scrollToCertBtn');
+const certificadosSection = document.getElementById('certificados');
+const iconoFlecha = scrollToCertBtn.querySelector('.icon-right');  // Icono de la flecha
+
+// Función para hacer scroll hasta la sección de los certificados
+scrollToCertBtn.addEventListener('click', () => {
+    certificadosSection.scrollIntoView({ behavior: 'smooth' });
+});
+
+// Detectamos cuando el usuario hace scroll para ocultar/mostrar el botón y cambiar la flecha
+window.addEventListener('scroll', () => {
+    const rect = certificadosSection.getBoundingClientRect();
+    
+    // Ajustamos el umbral para cambiar la flecha: margen de 100px desde la parte superior
+    const threshold = 100;
+
+    if (rect.top <= window.innerHeight - threshold && rect.bottom >= threshold) {
+        // Si la sección de certificados está visible en pantalla, ocultamos el botón
+        scrollToCertBtn.classList.add('hidden');
+    } else {
+        // Si estamos por encima o por debajo de la sección de certificados, mostramos el botón
+        scrollToCertBtn.classList.remove('hidden');
+
+        // Cambiar la dirección de la flecha
+        if (rect.top > window.innerHeight) {
+            // Si estamos por encima de los certificados, la flecha apunta hacia abajo
+            iconoFlecha.classList.remove('fa-arrow-up');
+            iconoFlecha.classList.add('fa-arrow-down');
+        } else {
+            // Si estamos por debajo de los certificados, la flecha apunta hacia arriba
+            iconoFlecha.classList.remove('fa-arrow-down');
+            iconoFlecha.classList.add('fa-arrow-up');
+        }
+    }
+});
+
+// Al hacer clic en el botón, quitamos la animación agregando la clase 'no-bounce'
+scrollToCertBtn.addEventListener('click', () => {
+    scrollToCertBtn.classList.add('no-bounce');
+});
+
+
+
+
+
+
+
 // menu responsive
 const barsResponsive = document.querySelector(".bars-responsive")
 const menuResponsive = document.querySelector(".menu-responsive")
@@ -954,41 +1004,71 @@ seeMoreProyectsButton.addEventListener("click",()=>{
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Seleccionar los elementos que contienen los códigos de los certificados
+// Seleccionamos los botones de los certificados
 let verifyButton1 = document.querySelector(".verify-cert-1");
 let verifyButton2 = document.querySelector(".verify-cert-2");
 let verifyButton3 = document.querySelector(".verify-cert-3");
+let verifyButton4 = document.querySelector(".verify-cert-4");
 
-// Función para copiar el código de los certificados al portapapeles
+// Códigos de los certificados
+const codigos = [
+    "4504-2640-3403-2048",  // Código para verifyButton1
+    "1392-5466-3623-3975",  // Código para verifyButton2
+    "1360-2020-7947-3576",  // Código para verifyButton3
+    "3454-3986-1987-5371"   // Código para verifyButton4
+];
+
+// Objeto que guarda el estado individual de cada botón (habilitado/deshabilitado)
+const botonState = {
+    "verify-cert-1": { disabled: false },
+    "verify-cert-2": { disabled: false },
+    "verify-cert-3": { disabled: false },
+    "verify-cert-4": { disabled: false }
+};
+
+// Función para copiar el código al portapapeles
 function copiarCodigos(event) {
-    // Obtener el código correspondiente al botón que se presionó
-    let textoParaCopiar = event.target.textContent.trim();  // Usamos el texto dentro de la etiqueta <p>
+    // Obtenemos el botón que fue presionado
+    let boton = event.target.closest('p');
+    
+    // Buscar la clase que comienza con 'verify-cert-' (asegurándonos de obtener solo la correcta)
+    let botonId = Array.from(boton.classList).find(cls => cls.startsWith('verify-cert-'));
+
+    // Verificar si el botón tiene el estado correcto en botonState
+    if (!botonId || !botonState[botonId]) {
+        console.error("Estado de botón no encontrado:", botonId);
+        return;
+    }
+
+    // Si el botón está deshabilitado, no hacer nada
+    if (botonState[botonId].disabled) return;
+
+    // Deshabilitar el botón para evitar clics adicionales
+    botonState[botonId].disabled = true;
+    boton.classList.add("disabled");  // Añadimos la clase "disabled" para cambiar el estilo
+
+    // Determinar cuál botón fue presionado y obtener el código correspondiente
+    let botonIndex = parseInt(botonId.split('-')[2]) - 1;  // Esto obtiene el índice (0, 1, 2, 3)
+    
+    // Obtener el código correspondiente usando el índice
+    let textoParaCopiar = codigos[botonIndex];
 
     // Usar la API Clipboard para copiar el texto al portapapeles
     navigator.clipboard.writeText(textoParaCopiar).then(() => {
-        // Guardamos el contenido original (texto y el ícono)
-        let botonOriginalHTML = event.target.innerHTML; // Guardamos el HTML completo (incluido el icono)
-        event.target.innerHTML = '<i class="fa-solid fa-check"></i> ¡Código Copiado!'; // Cambiar el HTML
+        // Guardamos el contenido original del texto
+        let originalTexto = boton.textContent.trim();
+        
+        // Cambiar el texto dentro del <p> a "¡Código Copiado!" (sin modificar el ícono)
+        boton.innerHTML = `<i class="fa-solid fa-check"></i> ¡Código Copiado!`;
 
-        // Esperar 2 segundos y volver al estado original
+        // Esperar 2 segundos y restaurar el texto original
         setTimeout(() => {
-            event.target.innerHTML = botonOriginalHTML; // Restaurar el contenido original (incluido el icono)
+            // Restauramos solo el texto original, manteniendo el ícono intacto
+            boton.innerHTML = `<i class="fa-regular fa-copy"></i> ${originalTexto}`;
+            
+            // Habilitar el botón nuevamente después de 2 segundos
+            botonState[botonId].disabled = false;  // Rehabilitamos el botón
+            boton.classList.remove("disabled");  // Quitamos la clase "disabled"
         }, 2000);
     }).catch(err => {
         console.error("Error al copiar al portapapeles: ", err);
@@ -999,6 +1079,12 @@ function copiarCodigos(event) {
 verifyButton1.addEventListener("click", copiarCodigos);
 verifyButton2.addEventListener("click", copiarCodigos);
 verifyButton3.addEventListener("click", copiarCodigos);
+verifyButton4.addEventListener("click", copiarCodigos);
+
+
+
+
+
 
 
 
